@@ -1,0 +1,136 @@
+<!--Sign Form-->
+<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm.value); loginForm.reset()" class="myForm mt-4 rounded-2">
+    <h1>Form</h1>
+
+    <!--first name-->    
+    <div class="mb-3">
+        <label for="firstName" class="form-label">first name</label>
+        <input type="text" class="form-control" 
+        id="firstName" placeholder="enter your first name"
+        name="firstName"
+        ngModel
+        #firstName="ngModel"        
+        required
+        minlength="4" 
+        >
+        <div *ngIf="firstName.invalid && firstName.touched" class="errors d-flex justify-content-center text-danger">
+            <div *ngIf="firstName.errors?.['required']">
+                *first name is required*
+            </div>
+            <div *ngIf="firstName.errors?.['minlength']">
+                *first name must be at least {{firstName.errors?.['minlength'].requiredLength}} characters*
+            </div>
+        </div>
+    </div>
+
+    <!--last name-->
+    <div class="mb-3">
+        <label for="lastName" class="form-label">last name</label>
+        <input type="text" class="form-control" 
+        id="lastName" 
+        placeholder="enter your last name"
+        name="lastName"
+        ngModel
+        #lastName="ngModel"        
+        required
+        minlength="4"
+        >
+        <div *ngIf="lastName.invalid && lastName.touched" class="errors d-flex justify-content-center text-danger">
+            <div *ngIf="lastName.errors?.['required']">
+                *last name is required*
+            </div>
+            <div *ngIf="lastName.errors?.['minlength']">
+                *last name must be at least {{firstName.errors?.['minlength'].requiredLength}} characters*
+            </div>
+        </div>        
+    </div>
+
+    <!--email-->
+    <div class="mb-3">
+        <label for="email" class="form-label">email</label>
+        <input type="email" class="form-control" id="email" placeholder="enter your mail"
+        name="email"
+        ngModel
+        #email="ngModel"
+        required
+        email        
+        >
+        <div *ngIf="email.invalid && email.touched" class="errors d-flex justify-content-center text-danger">
+            <div *ngIf="email.errors?.['required']">
+                *email is required*
+            </div>           
+            <div *ngIf="email.errors?.['email']">
+                *email is not valid*
+            </div>
+        </div>
+    </div>
+
+    <!--Gender Selection-->
+    <div class="col-12 my-4">
+        <div class="row">
+            <h4>Select your gender:</h4>
+        </div>
+        <div class="col-md-6">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" 
+                name="gender" id="male"
+                required
+                ngModel
+                value="male"
+                >
+                <label class="form-check-label" for="male">
+                  male
+                </label>
+            </div>
+        </div>    
+        <div class="col-md-6">                        
+            <div class="form-check">
+                <input class="form-check-input" type="radio" 
+                name="gender" 
+                id="female"
+                required
+                ngModel
+                value="female"
+                >
+                <label class="form-check-label" for="female">
+                  female
+                </label>
+            </div>
+        </div>
+    </div> 
+
+    <!--Status-->                                               
+    <div class="mb-3">
+        <div class="form-check">
+            <input class="form-check-input" 
+            type="checkbox" 
+            id="status"
+            ngModel
+            name="status"
+            >
+            <label class="form-check-label" for="status">
+              Is Married?
+            </label>
+        </div> 
+    </div>
+
+    <!--Country Selection-->
+    <div class="mt-4">
+        <div class="row">
+            <h4>Country:</h4>
+        </div>
+        <select class="form-select" name="country" required ngModel #country="ngModel">            
+            <option *ngFor="let country of countries; let i=index;" value="{{i}}">{{country.name}}</option>            
+        </select> 
+          <div class="errors d-flex justify-content-center text-danger" *ngIf="country.touched && country.invalid">
+                <div *ngIf="country.errors?.['required']">
+                    *country is required*
+                </div>            
+            </div>
+    </div>
+    
+    <!--Submit Button-->
+    <div class="my-3">
+        <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">submit</button>
+    </div>
+</form>
